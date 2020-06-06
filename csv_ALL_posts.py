@@ -40,7 +40,7 @@ posts_shown = 1000 # default size=25 (up to 1000)
 aggs = '&aggs=subreddit,author' # only use when getting ALL posts
 
 # SEARCH SUBMISSIONS - can also restrict by score (e.g. score=>100)
-url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&sort=desc&metadata=true{aggs}&num_comments=0" # =>0 to exclude zero-comment posts
+url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&sort=desc&metadata=true{aggs}"
 
 # PAGINATING RESULTS
 start_from = ''
