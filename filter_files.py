@@ -42,8 +42,7 @@ def indicate_op(is_op):
 
 # PROCESSING CSV --------------------------------
 post_data = pd.read_csv('./filtered_files/reddit_overview.csv')
-# is_relevant = post_data['relevance-reconciled']==1
-is_relevant = post_data['health-impact-reconciled']==1
+is_relevant = post_data['relevance-reconciled']==1
 relevant_posts = post_data[is_relevant]
 relevant_posts = relevant_posts.sort_values(['score', 'comment_score'], ascending=False)
 relevant_posts.to_csv('./filtered_files/relevant_post_overview.csv', index=False, header=True)
@@ -66,7 +65,7 @@ with open('./filtered_files/relevant_post_comments.txt', 'w', encoding="utf-8") 
 
         submission = reddit.submission(id=id)
         submission.comment_sort = 'top'
-        # print(submission.author)
+        
         # TXT FILE
         file.write("post score: "+str(submission.score)+" | r/"+str(submission.subreddit.display_name)+" | u/"+str(submission.author)+" | "+str(submission.num_comments)+" comments | "+str(dt.datetime.fromtimestamp(submission.created_utc).date())+" | "+submission.shortlink+"\n")
         file.write("POST TITLE: "+ submission.title +"\n")
