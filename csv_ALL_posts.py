@@ -18,16 +18,6 @@ reddit = praw.Reddit(client_id='PERSONAL_USE_SCRIPT_14_CHARS',
                      client_secret='SECRET_KEY_27_CHARS',
                      user_agent='YOUR_APP_NAME')
 
-# styling for readability -----------------------
-def clean_text(text):
-    text = text.strip()
-    text = re.sub('\n+', '\n', text)
-    text = re.sub('&amp;', '&', text)
-    text = re.sub('&lt;', '<', text)
-    text = re.sub('&gt;', '>', text)
-    text = re.sub('&#x200B;', '', text)
-    text = re.sub('&nbsp;', ' ', text)
-    return text
 # -----------------------------------------------
 
 # building the Pushshift URL 
@@ -41,6 +31,19 @@ aggs = '&aggs=subreddit,author' # set aggs = "" to exclude aggregation data (fas
 # search submissions using Pushshift
 # reference: https://github.com/pushshift/api#searching-submissions
 url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&after={earliest_date}&sort=desc&metadata=true{aggs}"
+
+# -----------------------------------------------
+
+# function that styles text for readability
+def clean_text(text):
+    text = text.strip()
+    text = re.sub('\n+', '\n', text)
+    text = re.sub('&amp;', '&', text)
+    text = re.sub('&lt;', '<', text)
+    text = re.sub('&gt;', '>', text)
+    text = re.sub('&#x200B;', '', text)
+    text = re.sub('&nbsp;', ' ', text)
+    return text
 
 # -----------------------------------------------
 
