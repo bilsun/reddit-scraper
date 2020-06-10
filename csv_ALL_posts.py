@@ -45,6 +45,8 @@ aggs = '&aggs=subreddit,author' # set aggs = "" to exclude aggregation data (fas
 # reference: https://github.com/pushshift/api#searching-submissions
 url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&sort=desc&metadata=true{aggs}"
 
+# -----------------------------------------------
+
 # paginating results to work around the 1000 size limit
 start_from = ''
 first_pass = True
@@ -65,13 +67,17 @@ while True:
         posts = request.json()
     
     assert(posts['metadata']['shards']["successful"]==posts['metadata']['shards']["total"]) # make sure Pushshift is gathering all Reddit data
+    
     data.extend(posts["data"])
     if len(posts["data"]) == 0:
 		    break # stop collecting data once there's nothing left to collect
+		
     last_utc = data[-1]['created_utc']
     start_from = '&before=' + str(last_utc)
 
 print("successful data collection!")
+
+# -----------------------------------------------
 
 # clean data and update scores with PRAW for more up-to-date stats
 for d in data:
@@ -91,6 +97,8 @@ for d in data:
         d.update({'top_comment': "N/A"})
     d.update({'title': clean_text(d.get("title","N/A"))})
     d.update({'selftext': clean_text(d.get("selftext","N/A"))})
+	
+# -----------------------------------------------
     
 # final formatting and exporting to csv
 df = pd.DataFrame.from_records(data, columns= ['full_link', 'subreddit', 'post keywords', 'id', 'date', 'score', 'num_comments', 'author', 'title', 'selftext', 'top_comment', 'comment_score'])
