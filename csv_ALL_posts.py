@@ -76,6 +76,7 @@ print("successful data collection!")
 # clean data and update scores with PRAW for more up-to-date stats
 for d in data:
 
+    # get data from PRAW based on unique post ID from Pushshift
     submission = reddit.submission(id=d['id'])
     submission.comment_sort = 'top'
 
