@@ -1,2 +1,2 @@
 # reddit-scraper
-content analysis project - gig work and privacy discussions on Reddit
+Using PRAW and Pushshift to scrape Reddit for research purposes
