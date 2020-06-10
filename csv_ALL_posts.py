@@ -47,7 +47,7 @@ def clean_text(text):
 
 # -----------------------------------------------
 
-# paginating results to work around the 1000 size limit
+# paginating results to work around the 1000 size limit (gather data 1000 posts at a time)
 start_from = ''
 first_pass = True
 data = []
