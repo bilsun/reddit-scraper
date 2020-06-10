@@ -11,7 +11,8 @@ import re
 
 start_time = time.time()
 
-# Load Reddit authentication from credentials.json for PRAW
+# load Reddit authentication from credentials.json for PRAW (not necessary if only using Pushshift)
+# reference: https://www.storybench.org/how-to-scrape-reddit-with-python/
 with open(r'C:\Users\billi\OneDrive\Documents\school\RESEARCH\credentials.json') as f:
     params = json.load(f)
 reddit = praw.Reddit(client_id=params['client_id'], 
@@ -32,26 +33,25 @@ def clean_text(text):
     return text
 # -----------------------------------------------
 
-keywords = 'disorder|disability|SSI|SSDI|"I\'m disabled"|"medical condition"|"medical issue"|"chronic pain"'
-subs = 'couriersofreddit,instacartshoppers,shiptshoppers,shipt,amazonflex,amazonflexdrivers,lyftdrivers,lyft,uberdrivers,ubereats,uber,limejuicer,taskrabbit,upwork,mturk,doordash,doordash_drivers,postmates,grubhubdrivers' 
+keywords = 'bias|prejudice'
+subs = 'AskSocialScience,AskFeminists' 
 submission_fields = 'id,score,full_link,subreddit,title,selftext,created_utc,author,num_comments' 
 posts_shown = 1000 # default size=25 (up to 1000)
-# aggs = ""
-aggs = '&aggs=subreddit,author' # only use when getting ALL posts
+aggs = '&aggs=subreddit,author' # set aggs = "" to exclude aggregation data (faster runtime)
 
-# SEARCH SUBMISSIONS - can also restrict by score (e.g. score=>100)
+# search submissions using Pushshift
 url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&sort=desc&metadata=true{aggs}"
 
-# PAGINATING RESULTS
+# paginating results
 start_from = ''
 first_pass = True
 data = []
 while True:
-    if first_pass: # only get aggregate data once to reduce runtime
+    if first_pass: 
         request = requests.get(url+start_from+aggs)
         print("request made - first pass")
         posts = request.json()
-        if aggs != '':
+        if aggs != '': # if collecting aggregate data, only collect once to reduce runtime
             author_summary = posts['aggs']['author']
             subreddit_summary = posts['aggs']['subreddit']
         first_pass = False
@@ -70,6 +70,7 @@ while True:
 
 print("successful data collection!")
 
+# clean data and update scores with PRAW for more up-to-date stats
 for d in data:
 
     submission = reddit.submission(id=d['id'])
@@ -91,7 +92,7 @@ df = pd.DataFrame.from_records(data, columns= ['full_link', 'subreddit', 'post k
 df = df.sort_values(['score', 'comment_score'], ascending=False) # sort by updated scores in csv
 df.to_csv('./scraped_files/reddit_overview.csv', index=False, header=True)
 
-if aggs != '':
+if aggs != '': # if collecting aggregate data, export to separate csv files
     author_df = pd.DataFrame.from_records(author_summary, columns = ['key', 'doc_count'])
     author_df.rename({'key': 'author', 'doc_count': 'count'}, axis=1, inplace=True)
     author_df.to_csv('./scraped_files/author_summary.csv', index=False, header=True)
