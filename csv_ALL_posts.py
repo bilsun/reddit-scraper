@@ -39,11 +39,12 @@ keywords = 'bias|prejudice'
 subs = 'AskSocialScience,AskFeminists' 
 submission_fields = 'id,score,full_link,subreddit,title,selftext,created_utc,author,num_comments' 
 posts_shown = 1000 # default size=25 (up to 1000)
+earliest_date = 1546300800 # 12am 1/1/19 unix timestamp
 aggs = '&aggs=subreddit,author' # set aggs = "" to exclude aggregation data (faster runtime)
 
 # search submissions using Pushshift
 # reference: https://github.com/pushshift/api#searching-submissions
-url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&sort=desc&metadata=true{aggs}"
+url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&after={earliest_date}&sort=desc&metadata=true{aggs}"
 
 # -----------------------------------------------
 
@@ -79,7 +80,7 @@ print("successful data collection!")
 
 # -----------------------------------------------
 
-# clean data and update scores with PRAW for more up-to-date stats
+# clean/format data and update scores with PRAW for more up-to-date stats
 for d in data:
 
     # get data from PRAW based on unique post ID from Pushshift
