@@ -67,7 +67,7 @@ while True:
     assert(posts['metadata']['shards']["successful"]==posts['metadata']['shards']["total"]) # make sure Pushshift is gathering all Reddit data
     data.extend(posts["data"])
     if len(posts["data"]) == 0:
-		    break
+		    break # stop collecting data once there's nothing left to collect
     last_utc = data[-1]['created_utc']
     start_from = '&before=' + str(last_utc)
 
