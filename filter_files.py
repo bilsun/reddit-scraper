@@ -11,12 +11,12 @@ import re
 
 start_time = time.time()
 
-# Load Reddit authentication from credentials.json for PRAW
+# Load Reddit authentication for PRAW
 reddit = praw.Reddit(client_id='PERSONAL_USE_SCRIPT_14_CHARS', 
                      client_secret='SECRET_KEY_27_CHARS',
                      user_agent='YOUR_APP_NAME')
 
-# styling for readability -----------------------
+# functions styling for readability -----------------------
 wrapper = textwrap.TextWrapper(initial_indent='\t', subsequent_indent='\t')
 
 def clean_text(text):
@@ -38,7 +38,7 @@ def indicate_op(is_op):
 
 # PROCESSING CSV --------------------------------
 post_data = pd.read_csv('./filtered_files/reddit_overview.csv')
-is_relevant = post_data['relevance-reconciled']==1
+is_relevant = post_data['relevance-reconciled']==1 # MODIFY THIS VARIABLE AS NECESSARY
 relevant_posts = post_data[is_relevant]
 relevant_posts = relevant_posts.sort_values(['score', 'comment_score'], ascending=False)
 relevant_posts.to_csv('./filtered_files/relevant_post_overview.csv', index=False, header=True)
@@ -54,7 +54,7 @@ keywords = ", ".join(keyword_list)
 
 with open('./filtered_files/relevant_post_comments.txt', 'w', encoding="utf-8") as file:
     file.write("SUBREDDITS REPRESENTED: "+ subs +" | KEYWORDS: "+ keywords +" | showing "+ str(len(relevant_posts.index)) +" relevant posts\n")
-    file.write("relevant posts are sorted by score and all contain at least 1 comment \n\n")
+    file.write("relevant posts are sorted by score \n\n")
     file.write("-----------------------------------------\n\n")
 
     for id in relevant_post_ids:
@@ -71,7 +71,8 @@ with open('./filtered_files/relevant_post_comments.txt', 'w', encoding="utf-8") 
         comm_list = []
         info_list = []
         tab_list = []
-        submission.comments.replace_more(limit=None) # may become slow/inaccurate if dealing with thousands of comments -- opt for Pushshift in those cases
+        # may become slow/inaccurate if dealing with thousands of comments -- recommend Pushshift instead (especially for quant work)
+        submission.comments.replace_more(limit=None) 
         comment_queue = submission.comments[:] # top-level comments
         while comment_queue:
             comment = comment_queue.pop(0)
