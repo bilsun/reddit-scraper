@@ -45,7 +45,7 @@ aggs = '&aggs=subreddit,author' # set aggs = "" to exclude aggregation data (fas
 # reference: https://github.com/pushshift/api#searching-submissions
 url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&sort=desc&metadata=true{aggs}"
 
-# paginating results
+# paginating results to work around the 1000 size limit
 start_from = ''
 first_pass = True
 data = []
