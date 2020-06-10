@@ -33,6 +33,7 @@ def clean_text(text):
     return text
 # -----------------------------------------------
 
+# building the Pushshift URL 
 keywords = 'bias|prejudice'
 subs = 'AskSocialScience,AskFeminists' 
 submission_fields = 'id,score,full_link,subreddit,title,selftext,created_utc,author,num_comments' 
