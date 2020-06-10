@@ -91,7 +91,8 @@ for d in data:
         d.update({'top_comment': "N/A"})
     d.update({'title': clean_text(d.get("title","N/A"))})
     d.update({'selftext': clean_text(d.get("selftext","N/A"))})
-        
+    
+# final formatting and exporting to csv
 df = pd.DataFrame.from_records(data, columns= ['full_link', 'subreddit', 'post keywords', 'id', 'date', 'score', 'num_comments', 'author', 'title', 'selftext', 'top_comment', 'comment_score'])
 df = df.sort_values(['score', 'comment_score'], ascending=False) # sort by updated scores in csv
 df.to_csv('./scraped_files/reddit_overview.csv', index=False, header=True)
