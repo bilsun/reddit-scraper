@@ -41,6 +41,7 @@ posts_shown = 1000 # default size=25 (up to 1000)
 aggs = '&aggs=subreddit,author' # set aggs = "" to exclude aggregation data (faster runtime)
 
 # search submissions using Pushshift
+# reference: https://github.com/pushshift/api#searching-submissions
 url = f"https://api.pushshift.io/reddit/search/submission/?q={keywords}&subreddit={subs}&fields={submission_fields}&size={posts_shown}&sort=desc&metadata=true{aggs}"
 
 # paginating results
