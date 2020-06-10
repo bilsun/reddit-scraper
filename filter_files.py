@@ -12,13 +12,9 @@ import re
 start_time = time.time()
 
 # Load Reddit authentication from credentials.json for PRAW
-with open(r'C:\Users\billi\OneDrive\Documents\school\RESEARCH\credentials.json') as f:
-    params = json.load(f)
-reddit = praw.Reddit(client_id=params['client_id'], 
-                     client_secret=params['api_key'],
-                     password=params['password'], 
-                     user_agent='privacy_gigwork_project',
-                     username=params['username'])
+reddit = praw.Reddit(client_id='PERSONAL_USE_SCRIPT_14_CHARS', 
+                     client_secret='SECRET_KEY_27_CHARS',
+                     user_agent='YOUR_APP_NAME')
 
 # styling for readability -----------------------
 wrapper = textwrap.TextWrapper(initial_indent='\t', subsequent_indent='\t')
