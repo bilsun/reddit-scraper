@@ -1,4 +1,5 @@
 # EXPORTS CSV FILE FOR *ALL* SPECIFIED POSTS
+# expect runtime of ~30 minutes per 1000 posts scraped
 
 import json
 import praw
