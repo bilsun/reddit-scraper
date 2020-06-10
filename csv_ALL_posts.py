@@ -66,7 +66,8 @@ while True:
         print("request made")
         posts = request.json()
     
-    assert(posts['metadata']['shards']["successful"]==posts['metadata']['shards']["total"]) # make sure Pushshift is gathering all Reddit data
+    # make sure Pushshift is gathering all Reddit data (IMPORTANT IF SCRAPING FOR RESEARCH)
+    assert(posts['metadata']['shards']["successful"]==posts['metadata']['shards']["total"]) 
     
     data.extend(posts["data"])
     if len(posts["data"]) == 0:
