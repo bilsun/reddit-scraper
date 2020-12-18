@@ -8,4 +8,4 @@ Analyzing REDDIT POSTS: **csv_ALL_posts.py** outputs to **scraped_files** folder
 
 Analyzing REDDIT COMMENTS: **filter_files.py** outputs to **filtered_files** folder when done
 
-Feel free to email me at bs676@cornell.edu if you have any questions or comments!
+Email me at bs676@cornell.edu if you have any questions or comments!
