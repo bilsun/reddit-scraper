@@ -1,7 +1,7 @@
 # reddit-scraper
 Using PRAW (Python Reddit API Wrapper) and Pushshift to scrape Reddit for research purposes (e.g. content analysis, thematic analysis)--intended more for qualitative researchers since scraped data is formatted for readability (doesn't prioritize efficiency or scalability)
 
-Walkthrough (applications to download, overview of files, suggested workflow, ethics of web scraping): 
+Walkthrough (applications to download, file overview, suggested workflow, ethics of web scraping): 
 https://docs.google.com/presentation/d/1oKUzeonnlYPOOWw2h7wXjVkEbgDPNqM5g7IGPoCoETQ/edit?usp=sharing 
 
 Analyzing REDDIT POSTS: **csv_ALL_posts.py** outputs to **scraped_files** folder when done
