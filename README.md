@@ -11,6 +11,6 @@ https://docs.google.com/presentation/d/1oKUzeonnlYPOOWw2h7wXjVkEbgDPNqM5g7IGPoCo
 ### Analyzing Reddit Comments
 - **comments_to_csv.py** outputs to **data > scraped_comments**
 - **comments_to_txt.py** outputs to **data > qual_comment_analysis** 
-  - Requires hand coding scraped Reddit posts prior to running
+  - *Requires hand coding scraped Reddit posts prior to running*
 
 Email me at bs676@cornell.edu if you have any questions or feedback!
