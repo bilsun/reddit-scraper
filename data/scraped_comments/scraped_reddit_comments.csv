@@ -1,0 +1,49 @@
+author,body,date,is_submitter,link,subreddit
+luisrodhino,"hey, this was useful for me, but I have a question: how do you make the additional time.constrained calls?
+thanks!",2018-06-14 16:00:22,False,https://www.reddit.com/r/pushshift/comments/8ejcor/how_can_i_get_all_comments_or_at_least_the/e0nzouy/,pushshift
+torb19,"With your help i also tried a different approach. But i actually get a nearly as many comments as submissions. I tried this:
+    def getPushshiftComments(after, sub):
+      url = 'https://api.pushshift.io/reddit/search/comment/?         &size=1000&after='+str(after)+'&subreddit='+str(sub)
+      r = requests.get(url)
+      data2 = json.loads(r.text)
+      return data2['data']
+    comment_ids = []
+    sub='hamburg'
+    after = ""1023752000""
+    while len(data2) > 0:
+      for submission in data2:
+          comment_ids.append(submission[""id""])
+          help_var = data2[-1]['created_utc']
+          date = dt.datetime.fromtimestamp(help_var).strftime('%Y-  %m- %d %H:%M:%S')
+          print(date)
+          data2 = getPushshiftData(sub=sub, after=data2[-1] ['created_utc'])
+I got around 3900 submissions and 4800 comments which is not really realistic and i get a different number with your code.
+Do you have any idea why there are such few comments?",2018-04-25 08:30:09,True,https://www.reddit.com/r/pushshift/comments/8ejcor/how_can_i_get_all_comments_or_at_least_the/dxxllaa/,pushshift
+torb19,"With your help i also tried a different approach. But i actually get a nearly as many comments as submissions. I tried this:
+   def getPushshiftComments(after, sub):
+    url = 'https://api.pushshift.io/reddit/search/comment/?       &size=1000&after='+str(after)+'&subreddit='+str(sub)
+    r = requests.get(url)
+    data2 = json.loads(r.text)
+    return data2['data']
+  comment_ids = []
+  sub='hamburg'
+  after = ""1023752000""
+  while len(data2) > 0:
+    for submission in data2:
+        comment_ids.append(submission[""id""])
+        help_var = data2[-1]['created_utc']
+        date = dt.datetime.fromtimestamp(help_var).strftime('%Y-%m- %d %H:%M:%S')
+        print(date)
+        data2 = getPushshiftData(sub=sub, after=data2[-1]['created_utc'])
+I got around 3900 submissions and 4800 comments which is not really realistic and i get a different number with your code.
+Do you have any idea why there are such few comments?",2018-04-25 08:28:32,True,https://www.reddit.com/r/pushshift/comments/8ejcor/how_can_i_get_all_comments_or_at_least_the/dxxljti/,pushshift
+torb19,"Thank you, that was actually super helpful!",2018-04-25 07:20:53,True,https://www.reddit.com/r/pushshift/comments/8ejcor/how_can_i_get_all_comments_or_at_least_the/dxxjqpq/,pushshift
+shaggorama,"You're limited to 500 results per API call, but you can go as far back as yi want by making additional time- constrained calls. Here's a lady solution:
+    pip installl psaw
+    from psaw import PushshiftAPI
+    api = PushshiftAPI()
+    gen =  api.search_comments(subreddit='fifa')
+    comments = list(gen)",2018-04-24 17:17:46,False,https://www.reddit.com/r/pushshift/comments/8ejcor/how_can_i_get_all_comments_or_at_least_the/dxw83dn/,pushshift
+torb19,"isnt this restricted to a specific number?
+could you give me an example for all comments of the Fifa subreddit?",2018-04-24 12:28:28,True,https://www.reddit.com/r/pushshift/comments/8ejcor/how_can_i_get_all_comments_or_at_least_the/dxvq9rr/,pushshift
+shaggorama,Just use the comment search endpoint,2018-04-24 10:58:09,False,https://www.reddit.com/r/pushshift/comments/8ejcor/how_can_i_get_all_comments_or_at_least_the/dxvmup9/,pushshift
