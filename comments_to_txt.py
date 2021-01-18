@@ -22,7 +22,7 @@ reddit = praw.Reddit(client_id='PERSONAL_USE_SCRIPT_14_CHARS',
                      user_agent='YOUR_APP_NAME')
 
 post_data = pd.read_csv('./data/qual_comment_analysis/manually_coded_posts.csv') 
-is_relevant = post_data['relevance-reconciled'] == 1 # dictates the content of selected_reddit_comments.txt
+filter_criteria = post_data['relevance-reconciled'] == 1 # dictates the content of selected_reddit_comments.txt
 
 sort_by = 'top' # options: best, top, new, controversial
 
@@ -30,7 +30,7 @@ sort_by = 'top' # options: best, top, new, controversial
 
 # preparing data 
 
-relevant_posts = post_data[is_relevant]
+relevant_posts = post_data[filter_criteria]
 relevant_posts = relevant_posts.sort_values(['score', 'comment_score'], ascending=False)
 
 relevant_post_ids = relevant_posts['id'].tolist()
